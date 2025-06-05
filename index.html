@@ -3,77 +3,449 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Godrej Alira - Home</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Godrej Hotel</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+    /* Reset */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg') no-repeat center center/cover;
+      color: #fff;
+      text-transform: uppercase;
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      z-index: 10000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      user-select: none;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffd700;
+      letter-spacing: 3px;
+      cursor: default;
+    }
+
+    nav {
+      position: relative;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.3rem 0.5rem;
+      transition: 0.3s;
+      letter-spacing: 1px;
+    }
+
+    nav ul li a:hover,
+    nav ul li a:focus {
+      color: #ffd700;
+      outline: none;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      width: 28px;
+      height: 21px;
+      justify-content: space-between;
+    }
+
+    .hamburger div {
+      height: 3px;
+      background-color: #ffd700;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Hamburger active animation */
+    .hamburger.active div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active div:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active div:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Responsive menu styles */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        background: rgba(0,0,0,0.9);
+        position: fixed;
+        top: 65px;
+        right: -100%;
+        width: 200px;
+        height: calc(100% - 65px);
+        padding-top: 1rem;
+        gap: 1.5rem;
+        transition: right 0.3s ease-in-out;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.7);
+        border-radius: 0 0 0 10px;
+      }
+
+      nav ul.show {
+        right: 0;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      padding-top: 80px; /* header height */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: rgba(0,0,0,0.4);
+      padding: 0 1rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 10px #ffd700;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: #ffd700;
+      max-width: 600px;
+      font-weight: 500;
+      text-shadow: 0 0 6px #ffd700;
+    }
+
+    /* Sections general style */
+    section {
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 1rem 2rem;
+      background: rgba(0,0,0,0.7);
+      border-radius: 10px;
+    }
+
+    section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: #ffd700;
+      text-align: center;
+      text-shadow: 0 0 5px #ffd700;
+      letter-spacing: 3px;
+    }
+
+    /* Our Features */
+    .features-list {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .feature {
+      background: #222;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: 700;
+      color: #ffd700;
+      min-width: 160px;
+      text-align: center;
+      box-shadow: 0 0 10px #ffd700;
+      transition: background-color 0.3s;
+      cursor: default;
+      font-size: 1rem;
+    }
+
+    .feature:hover {
+      background-color: #ffd700;
+      color: #000;
+    }
+
+    /* Gallery */
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery-container img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    .gallery-container img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Contact Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: none;
+      resize: vertical;
+      font-family: 'Poppins', sans-serif;
+      text-transform: none; /* For user input, keep normal */
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: 2px solid #ffd700;
+      background-color: #fff;
+      color: #000;
+    }
+
+    .contact-form button {
+      padding: 1rem 0;
+      font-weight: 700;
+      font-size: 1.1rem;
+      background: #ffd700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #000;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact-form button:hover,
+    .contact-form button:focus {
+      background: #ffa500;
+      color: #fff;
+      outline: none;
+    }
+
+    /* Map */
+    .map-container {
+      width: 100%;
+      height: 400px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+      margin: auto;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Call Icon bottom right */
+    .call-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ffd700;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      z-index: 11000;
+    }
+
+    .call-icon:hover {
+      background-color: #ffa500;
+    }
+
+    .call-icon svg {
+      fill: #000;
+      width: 30px;
+      height: 30px;
+    }
+
+    /* Scroll to top */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background-color: #ffd700;
+      color: #000;
+      font-weight: 700;
+      font-size: 24px;
+      padding: 8px 12px;
+      border-radius: 50%;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+      z-index: 10000;
+      user-select: none;
+    }
+
+    .scroll-to-top:hover {
+      background-color: #ffa500;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
 
-  <nav>
+  <header>
+    <div class="logo">Godrej</div>
+    <nav>
+      <ul id="nav-menu">
+        <li><a href="#home" tabindex="0">Home</a></li>
+        <li><a href="#features" tabindex="0">Our Features</a></li>
+        <li><a href="#gallery" tabindex="0">Gallery</a></li>
+        <li><a href="#contact" tabindex="0">Contact</a></li>
+        <li><a href="#map" tabindex="0">Map</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0" aria-expanded="false" aria-controls="nav-menu">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </nav>
+  </header>
 
-    <ul>
-      <li><a href="home.html" class="active">Home</a></li>
-      <li><a href="features.html">Features</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="map.html">Map</a></li>
-    </ul>
-    <a href="contact.html" class="enroll-btn">Enroll Now</a>
+  <section id="home" class="hero">
+    <h1>Welcome to Godrej Hotel</h1>
+    <p>Experience luxury and comfort in the heart of the city.</p>
+  </section>
 
-  </nav>
-
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Welcome to Our Hotel</h1>
-       <p>Enjoy your stay with us!</p>
-      <a href="#enroll-section" class="enroll-btn hero-btn">Get Started</a>
+  <section id="features">
+    <h2>Our Features</h2>
+    <div class="features-list">
+      <div class="feature">Free Wi-Fi</div>
+      <div class="feature">24/7 Room Service</div>
+      <div class="feature">Luxury Suites</div>
+      <div class="feature">Swimming Pool</div>
+      <div class="feature">Spa & Wellness</div>
+      <div class="feature">Conference Rooms</div>
+      <div class="feature">Fine Dining</div>
+      <div class="feature">Airport Shuttle</div>
     </div>
   </section>
 
-  <main class="container">
-    <section class="intro">
-      <h2>Discover Your Dream Home</h2>
-      <p>
-        Godrej Alira offers the perfect blend of modern architecture, 
-        lush greenery, and world-class amenities designed to elevate your lifestyle.
-      </p>
-    </section>
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <div class="gallery-container">
+      <img src="https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg" alt="Hotel Room 1" />
+      <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg" alt="Hotel Room 2" />
+      <img src="https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg" alt="Hotel Room 3" />
+      <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg" alt="Hotel Room 4" />
+      <img src="https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg" alt="Hotel Room 5" />
+      <img src="https://images.pexels.com/photos/261039/pexels-photo-261039.jpeg" alt="Hotel Room 6" />
+      <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg" alt="Hotel Room 7" />
+      <img src="https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg" alt="Hotel Room 8" />
+    </div>
+  </section>
 
-    <section class="home-features">
-      <h2>Why Choose Godrej Alira?</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">🏙️</div>
-          <h3 class="feature-title">Prime Location</h3>
-          <p class="feature-desc">Close to all major landmarks and city centers.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🌿</div>
-          <h3 class="feature-title">Green Spaces</h3>
-          <p class="feature-desc">Peaceful parks and open spaces for a fresh environment.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🏋️‍♂️</div>
-          <h3 class="feature-title">Modern Amenities</h3>
-          <p class="feature-desc">Gym, swimming pool, clubhouse and more.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🔒</div>
-          <h3 class="feature-title">24/7 Security</h3>
-          <p class="feature-desc">Ensuring your safety and peace of mind at all times.</p>
-        </div>
-      </div>
-    </section>
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form class="contact-form" onsubmit="event.preventDefault(); alert('Message Sent!');">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
 
-    <section id="enroll-section" class="enroll-section">
-      <h2>Ready to Join Us?</h2>
-      <p>Contact us today to schedule a visit or get more details.</p>
-      <a href="contact.html" class="enroll-btn">Enroll Now</a>
-    </section>
-  </main>
+  <section id="map">
+    <h2>Find Us Here</h2>
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d224345.83950667343!2d77.06889921525453!3d28.52728004029112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d03b9ed19118d%3A0x8423e02e76be8a56!2sGodrej%20Properties!5e0!3m2!1sen!2sin!4v1623951687907!5m2!1sen!2sin" 
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        aria-label="Godrej Location Map"
+      ></iframe>
+    </div>
+  </section>
 
-  <footer>
-    &copy; 2025 Godrej Alira. All rights reserved.
-  </footer>
+  <!-- Call icon bottom right -->
+  <a href="tel:+911234567890" class="call-icon" aria-label="Call Godrej Hotel">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000">
+      <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.2.48 2.5.74 3.83.74a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 20.21 3.79 13.93 3.79 6a1 1 0 011-1h3.5a1 1 0 011 1c0 1.33.26 2.63.74 3.83a1 1 0 01-.21 1.11l-2.2 2.2z"/>
+    </svg>
+  </a>
 
+  <!-- Scroll to top button -->
+  <a href="#home" class="scroll-to-top" aria-label="Scroll to top">&#8679;</a>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('show');
+
+      // Accessibility aria-expanded toggle
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', !expanded);
+    });
+
+    // Close menu on link click (mobile)
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if(window.innerWidth <= 768) {
+          hamburger.classList.remove('active');
+          navMenu.classList.remove('show');
+          hamburger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    // Optional: close menu on window resize
+    window.addEventListener('resize', () => {
+      if(window.innerWidth > 768) {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  </script>
 </body>
 </html>
